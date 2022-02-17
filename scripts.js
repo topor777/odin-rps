@@ -9,6 +9,28 @@ function computerPlay() {
     else return 'Scissors';
 }
 
+function playerPlay() {
+    let attemps = 0;
+    while (true) {
+        let str = prompt('Type: Rock, Paper or Scissors');
+        str = str.toLowerCase();
+        str = str.replace(str[0], str[0].toUpperCase());
+        switch (str) {
+            case 'Rock': return str;
+            case 'Paper': return str;
+            case 'Scissors': return str;
+            default: 
+                attemps++;
+                if (attemps > 2) {
+                    str = computerPlay();
+                    alert(`You're hopeless, I chose for you: "${str}"`);
+                    return str;
+                }
+                alert("Please, enter only one word: Rock OR Paper OR Scissors");
+        }
+    }
+}
+
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
         console.log("Draw");
@@ -28,11 +50,11 @@ function game() {
     let playerScore = 0;
     let computerScore = 0;
     for (let i = 0; i < 5; i++) {
-        let score = playRound(computerPlay(), computerPlay());
+        let score = playRound(playerPlay(), computerPlay());
         if (score === 1) playerScore +=1;
         if (score === 2) computerScore +=1;
     }
-    console.log(`FINAL SCORE: Player - ${playerScore}, Computer - ${computerScore}`);
+    console.log(`FINAL SCORE: You - ${playerScore}, Computer - ${computerScore}`);
 }
 
 game();
