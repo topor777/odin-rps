@@ -4,57 +4,45 @@ function getRandomInt() {
 
 function computerPlay() {
     randomInt = getRandomInt();
-    if (randomInt === 0) return 'Rock';
-    else if (randomInt === 1) return 'Paper'; 
-    else return 'Scissors';
-}
-
-function playerPlay() {
-    let attemps = 0;
-    while (true) {
-        let str = prompt('Type: Rock, Paper or Scissors');
-        str = str.toLowerCase();
-        str = str.replace(str[0], str[0].toUpperCase());
-        switch (str) {
-            case 'Rock': return str;
-            case 'Paper': return str;
-            case 'Scissors': return str;
-            default: 
-                attemps++;
-                if (attemps > 2) {
-                    str = computerPlay();
-                    alert(`You're hopeless, I chose for you: "${str}"`);
-                    return str;
-                }
-                alert("Please, enter only one word: Rock OR Paper OR Scissors");
-        }
-    }
+    if (randomInt === 0) return 'rock';
+    else if (randomInt === 1) return 'paper'; 
+    else return 'scissors';
 }
 
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
-        console.log("Draw");
+        paraRound.textContent = "Draw!";
         return 0;
-    } else if ((playerSelection === "Rock" && computerSelection === "Scissors")
-            || (playerSelection === "Paper" && computerSelection === "Rock")
-            || (playerSelection === "Scissors" && computerSelection === "Paper")) {
-        console.log(`You Win! ${playerSelection} beats ${computerSelection}`);
+    } else if ((playerSelection === "rock" && computerSelection === "scissors")
+            || (playerSelection === "paper" && computerSelection === "rock")
+            || (playerSelection === "scissors" && computerSelection === "paper")) {
+                paraRound.textContent = `You Won! ${playerSelection} beats ${computerSelection}`;
         return 1;
     } else {
-        console.log(`You Lose! ${computerSelection} beats ${playerSelection}`);
+        paraRound.textContent = `You Lose! ${computerSelection} beats ${playerSelection}`;
         return 2;
     }
 }
 
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-    for (let i = 0; i < 5; i++) {
-        let score = playRound(playerPlay(), computerPlay());
-        if (score === 1) playerScore +=1;
-        if (score === 2) computerScore +=1;
-    }
-    console.log(`FINAL SCORE: You - ${playerScore}, Computer - ${computerScore}`);
+function countScore(score) {
+    if (score === 1) playerScore +=1;
+    if (score === 2) computerScore +=1;
+    paraScore.textContent = `FINAL SCORE: You - ${playerScore}, Computer - ${computerScore}`;
 }
 
-game();
+function play() {
+    const score = playRound(this.id, computerPlay());
+    countScore(score);  
+};
+
+let playerScore = 0;
+let computerScore = 0;
+const buttons = document.querySelectorAll('.button');
+const game = document.querySelector('.game');
+const paraScore = document.createElement('p');
+const paraRound = document.createElement('p');
+game.append(paraRound, paraScore);
+
+buttons.forEach(button => {
+    button.addEventListener('click', play)
+});
