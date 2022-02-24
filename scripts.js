@@ -9,13 +9,13 @@ function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
         paraRound.textContent = `A tie! ${playerSelection} and ${computerSelection}`;
         return 0;
-    } else if ((playerSelection === "rock" && computerSelection === "scissors")
-            || (playerSelection === "paper" && computerSelection === "rock")
-            || (playerSelection === "scissors" && computerSelection === "paper")) {
-                paraRound.textContent = `You Won! ${playerSelection} beats ${computerSelection}`;
+    } else if ((playerSelection === "Rock" && computerSelection === "Scissors")
+            || (playerSelection === "Paper" && computerSelection === "Rock")
+            || (playerSelection === "Scissors" && computerSelection === "Paper")) {
+        console.log(`You Win! ${playerSelection} beats ${computerSelection}`);
         return 1;
     } else {
-        paraRound.textContent = `You Lose! ${computerSelection} beats ${playerSelection}`;
+        console.log(`You Lose! ${computerSelection} beats ${playerSelection}`);
         return 2;
     }
 }
