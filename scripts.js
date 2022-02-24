@@ -1,17 +1,13 @@
-function getRandomInt() {
-    return Math.floor(Math.random() * 3);
-}
-
 function computerPlay() {
-    randomInt = getRandomInt();
+    randomInt = Math.floor(Math.random() * 3);
     if (randomInt === 0) return 'rock';
-    else if (randomInt === 1) return 'paper'; 
+    if (randomInt === 1) return 'paper'; 
     else return 'scissors';
 }
 
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
-        paraRound.textContent = "Draw!";
+        paraRound.textContent = `A tie! ${playerSelection} and ${computerSelection}`;
         return 0;
     } else if ((playerSelection === "rock" && computerSelection === "scissors")
             || (playerSelection === "paper" && computerSelection === "rock")
@@ -25,7 +21,6 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function countScore(score) {
-    roundCount.textContent = `Round: ${rounds}`;
     if (rounds > 4) {
         playAgainBtn.style.display = '';
         paraRound.textContent = '';
@@ -33,18 +28,19 @@ function countScore(score) {
     }
     if (score === 1) playerScore +=1;
     if (score === 2) computerScore +=1;
-    paraScore.textContent = `FINAL SCORE: You - ${playerScore}, Computer - ${computerScore}`;
+    roundCount.textContent = `Round: ${rounds}`;
+    paraScore.textContent = `SCORE: You - ${playerScore}, Computer - ${computerScore}`;
 }
 
-function play() {
-    const score = playRound(this.id, computerPlay());
+function play(e) {
+    const score = playRound(e.target.id, computerPlay());
     rounds++;
     countScore(score);  
 };
 
 function disableBtns() {
     buttons.forEach(button => {
-        button.disabled = button.disabled ? false : true;
+        button.disabled = !button.disabled;
     })
 }
 
