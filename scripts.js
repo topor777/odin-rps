@@ -58,6 +58,7 @@ playAgainBtn.textContent = 'Play again?'
 playAgainBtn.style.display = 'none';
 game.appendChild(playAgainBtn);
 
+
 buttons.forEach(button => {
     button.addEventListener('click', play)
 });
